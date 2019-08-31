@@ -35,11 +35,11 @@ const showError = error => {
     errorDiv.className = 'alert alert-danger'
     errorDiv.appendChild(document.createTextNode(error))
     card.insertBefore(errorDiv, heading)
-    setTimeout(clearError, 3000)
+    setTimeout(clearError, 2000)
 }
 
 const clearError = () => {
-    document.querySelector('.alert').remove()
+    document.querySelector('.alert-danger').remove()
 }
 
 loanForm.addEventListener('submit', e => {
