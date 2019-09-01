@@ -4,25 +4,6 @@ const clearBtn = document.querySelector('.clear-tasks')
 const filter = document.querySelector('#filter')
 const taskInput = document.querySelector('#task')
 
-const addTask = e => {
-    if (taskInput.value === '') {
-        return alert('Add a task')
-    }
-    const li = document.createElement('li')
-    li.className = 'collection-item'
-    li.appendChild(document.createTextNode(taskInput.value))
-    const link = document.createElement('a')
-    link.className = 'delete-item secondary-content'
-    link.innerHTML = '<i class="fa fa-times"></i>'
-    li.appendChild(link)
-    taskList.appendChild(li)
-
-    storeTasksInLocalStorage(taskInput.value)
-
-    taskInput.value = ''
-    e.preventDefault()
-}
-
 const storeTasksInLocalStorage = task => {
     let tasks
     if (localStorage.getItem('tasks') === null) {
@@ -53,14 +34,33 @@ const getTasks = () => {
     })
 }
 
+const addTask = e => {
+    if (taskInput.value === '') {
+        alert('Add a task')
+    }
+    const li = document.createElement('li')
+    li.className = 'collection-item'
+    li.appendChild(document.createTextNode(taskInput.value))
+    const link = document.createElement('a')
+    link.className = 'delete-item secondary-content'
+    link.innerHTML = '<i class="fa fa-times"></i>'
+    li.appendChild(link)
+    taskList.appendChild(li)
+
+    storeTasksInLocalStorage(taskInput.value)
+
+    taskInput.value = ''
+    e.preventDefault()
+}
+
 const removeTask = e => {
     if (e.target.parentElement.classList.contains('delete-item')) {
         e.target.parentElement.parentElement.remove()
-        removeTasksFromLocalStorage(e.target.parentElement.parentElement)
+        removeTaskFromLocalStorage(e.target.parentElement.parentElement)
     }
 }
 
-const removeTasksFromLocalStorage = taskItem => {
+const removeTaskFromLocalStorage = taskItem => {
     let tasks
     if (localStorage.getItem('tasks') === null) {
         tasks = []
