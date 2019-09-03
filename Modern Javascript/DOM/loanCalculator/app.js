@@ -1,19 +1,17 @@
 const loanForm = document.querySelector('#loan-form')
 
 const calculateResults = () => {
-    const amount = document.querySelector('#amount')
-    const interest = document.querySelector('#interest')
-    const years = document.querySelector('#years')
-    const monthlyPayment = document.querySelector('#monthly-payment')
-    const totalPayment = document.querySelector('#total-payment')
-    const totalInterest = document.querySelector('#total-interest')
-
-    const principal = parseFloat(amount.value)
-    const calculatedInterest = parseFloat(interest.value) / 100 / 12
-    const calculatedPayments = parseFloat(years.value) * 12
-
-    const x = Math.pow(1 + calculatedInterest, calculatedPayments)
-    const monthly = (principal * x * calculatedInterest) / (x - 1)
+    const amount = document.querySelector('#amount'),
+        interest = document.querySelector('#interest'),
+        years = document.querySelector('#years'),
+        monthlyPayment = document.querySelector('#monthly-payment'),
+        totalPayment = document.querySelector('#total-payment'),
+        totalInterest = document.querySelector('#total-interest'),
+        principal = parseFloat(amount.value),
+        calculatedInterest = parseFloat(interest.value) / 100 / 12,
+        calculatedPayments = parseFloat(years.value) * 12,
+        x = Math.pow(1 + calculatedInterest, calculatedPayments),
+        monthly = (principal * x * calculatedInterest) / (x - 1)
 
     if (isFinite(monthly)) {
         monthlyPayment.value = monthly.toFixed(2)
@@ -39,7 +37,7 @@ const showError = error => {
 }
 
 const clearError = () => {
-    document.querySelector('.alert-danger').remove()
+    document.querySelector('.alert').remove()
 }
 
 loanForm.addEventListener('submit', e => {
