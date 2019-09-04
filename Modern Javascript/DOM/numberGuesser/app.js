@@ -10,8 +10,8 @@ let min = 1,
 const game = document.querySelector('#game'),
     minNum = document.querySelector('.min-num'),
     maxNum = document.querySelector('.max-num'),
-    guessInput = document.querySelector('#guess-input'),
     guessBtn = document.querySelector('#guess-btn'),
+    guessInput = document.querySelector('#guess-input'),
     message = document.querySelector('.message')
 
 minNum.textContent = min
@@ -35,9 +35,8 @@ const gameOver = (won, msg) => {
 
 guessBtn.addEventListener('click', () => {
     let guess = parseInt(guessInput.value)
-
     if (isNaN(guess) || guess < min || guess > max) {
-        return setMessage(`Please enter a number betweem ${min} and ${max}`, 'red')
+        return setMessage(`Please enter a number between ${min} and ${max}`, 'red')
     }
 
     if (guess === winningNum) {
@@ -45,7 +44,7 @@ guessBtn.addEventListener('click', () => {
     } else {
         guessesLeft -= 1
         if (guessesLeft === 0) {
-            gameOver(false, `Game over, you lost. The correct number is ${winningNum}`)
+            gameOver(false, `Game over, you lost. The number was ${winningNum}`)
         } else {
             guessInput.value = ''
             setMessage(`${guess} is not correct, ${guessesLeft} guesses left`, 'red')
@@ -53,7 +52,7 @@ guessBtn.addEventListener('click', () => {
     }
 })
 
-game.addEventListener('mousedown', e => {
+game.addEventListener('mouseover', e => {
     if (e.target.className === 'play-again') {
         window.location.reload()
     }
