@@ -4,6 +4,17 @@ const clearBtn = document.querySelector('.clear-tasks')
 const filter = document.querySelector('#filter')
 const taskInput = document.querySelector('#task')
 
+const storeTasksInLocalStorage = task => {
+    let tasks
+    if (localStorage.getItem('tasks') === null) {
+        tasks = []
+    } else {
+        tasks = JSON.parse(localStorage.getItem('tasks'))
+    }
+    tasks.push(task)
+    localStorage.setItem('tasks', JSON.stringify(tasks))
+}
+
 const getTasks = () => {
     let tasks
     if (localStorage.getItem('tasks') === null) {
@@ -25,7 +36,7 @@ const getTasks = () => {
 
 const addTask = e => {
     if (taskInput.value === '') {
-        return alert('Please add a task')
+        return alert('Add a task')
     }
     const li = document.createElement('li')
     li.className = 'collection-item'
@@ -42,25 +53,14 @@ const addTask = e => {
     e.preventDefault()
 }
 
-const storeTasksInLocalStorage = task => {
-    let tasks
-    if (localStorage.getItem('tasks') === null) {
-        tasks = []
-    } else {
-        tasks = JSON.parse(localStorage.getItem('tasks'))
-    }
-    tasks.push(task)
-    localStorage.setItem('tasks', JSON.stringify(tasks))
-}
-
 const removeTask = e => {
     if (e.target.parentElement.classList.contains('delete-item')) {
         e.target.parentElement.parentElement.remove()
-        removeTasksFromLocalStorage(e.target.parentElement.parentElement)
+        removeTaskFromLocalStorage(e.target.parentElement.parentElement)
     }
 }
 
-const removeTasksFromLocalStorage = taskItem => {
+const removeTaskFromLocalStorage = taskItem => {
     let tasks
     if (localStorage.getItem('tasks') === null) {
         tasks = []
@@ -75,16 +75,19 @@ const removeTasksFromLocalStorage = taskItem => {
     localStorage.setItem('tasks', JSON.stringify(tasks))
 }
 
+
 const clearTasks = () => {
     while (taskList.firstChild) {
         taskList.removeChild(taskList.firstChild)
     }
+
     clearTasksFromLocalStorage()
 }
 
 const clearTasksFromLocalStorage = () => {
     localStorage.clear()
 }
+
 
 const filterTasks = e => {
     const text = e.target.value.toLowerCase()
@@ -98,7 +101,7 @@ const filterTasks = e => {
     })
 }
 
-const loadEventListeners = () => {
+const loadEventListener = () => {
     document.addEventListener('DOMContentLoaded', getTasks)
     form.addEventListener('submit', addTask)
     taskList.addEventListener('click', removeTask)
@@ -106,4 +109,4 @@ const loadEventListeners = () => {
     filter.addEventListener('keyup', filterTasks)
 }
 
-loadEventListeners()
+loadEventListener()
