@@ -53,13 +53,6 @@ const addTask = e => {
     e.preventDefault()
 }
 
-const removeTask = e => {
-    if (e.target.parentElement.classList.contains('delete-item')) {
-        e.target.parentElement.parentElement.remove()
-        removeTaskFromLocalStorage(e.target.parentElement.parentElement)
-    }
-}
-
 const removeTaskFromLocalStorage = taskItem => {
     let tasks
     if (localStorage.getItem('tasks') === null) {
@@ -75,19 +68,25 @@ const removeTaskFromLocalStorage = taskItem => {
     localStorage.setItem('tasks', JSON.stringify(tasks))
 }
 
+const removeTask = e => {
+    if (e.target.parentElement.classList.contains('delete-item')) {
+        e.target.parentElement.parentElement.remove()
+        removeTaskFromLocalStorage(e.target.parentElement.parentElement)
+    }
+}
+
+
 
 const clearTasks = () => {
     while (taskList.firstChild) {
         taskList.removeChild(taskList.firstChild)
     }
-
     clearTasksFromLocalStorage()
 }
 
 const clearTasksFromLocalStorage = () => {
     localStorage.clear()
 }
-
 
 const filterTasks = e => {
     const text = e.target.value.toLowerCase()
@@ -101,7 +100,7 @@ const filterTasks = e => {
     })
 }
 
-const loadEventListener = () => {
+const loadEventListeners = () => {
     document.addEventListener('DOMContentLoaded', getTasks)
     form.addEventListener('submit', addTask)
     taskList.addEventListener('click', removeTask)
@@ -109,4 +108,4 @@ const loadEventListener = () => {
     filter.addEventListener('keyup', filterTasks)
 }
 
-loadEventListener()
+loadEventListeners()
