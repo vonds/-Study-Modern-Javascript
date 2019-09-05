@@ -52,7 +52,7 @@ guessBtn.addEventListener('click', () => {
     }
 })
 
-game.addEventListener('mouseover', e => {
+game.addEventListener('mousedown', e => {
     if (e.target.className === 'play-again') {
         window.location.reload()
     }
