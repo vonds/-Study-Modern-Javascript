@@ -44,10 +44,10 @@ guessBtn.addEventListener('click', () => {
     } else {
         guessesLeft -= 1
         if (guessesLeft === 0) {
-            gameOver(false, `Game over, you lost. The number was ${winningNum}`)
+            gameOver(false, `Game over, you lost. ${winningNum} was the correct number`)
         } else {
             guessInput.value = ''
-            setMessage(`${guess} is not correct, ${guessesLeft} guesses left`, 'red')
+            setMessage(`${guess} is not correct, ${guessesLeft} guesses left.`, 'red')
         }
     }
 })
