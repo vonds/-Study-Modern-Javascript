@@ -4,7 +4,7 @@ const clearBtn = document.querySelector('.clear-tasks')
 const filter = document.querySelector('#filter')
 const taskInput = document.querySelector('#task')
 
-const storeTasksInLocalStorage = task => {
+const storeTaskInLocalStorage = task => {
     let tasks
     if (localStorage.getItem('tasks') === null) {
         tasks = []
@@ -47,7 +47,7 @@ const addTask = e => {
     li.appendChild(link)
     taskList.appendChild(li)
 
-    storeTasksInLocalStorage(taskInput.value)
+    storeTaskInLocalStorage(taskInput.value)
 
     taskInput.value = ''
     e.preventDefault()
@@ -75,17 +75,15 @@ const removeTask = e => {
     }
 }
 
-
+const clearTasksFromLocalStorage = () => {
+    localStorage.clear()
+}
 
 const clearTasks = () => {
     while (taskList.firstChild) {
         taskList.removeChild(taskList.firstChild)
     }
     clearTasksFromLocalStorage()
-}
-
-const clearTasksFromLocalStorage = () => {
-    localStorage.clear()
 }
 
 const filterTasks = e => {
