@@ -6,6 +6,12 @@ function Book(title, author, isbn) {
 
 function UI() {}
 
+UI.prototype.deleteBook = function(target) {
+    if (target.className = 'delete') {
+        target.parentElement.parentElement.remove()
+    }
+}
+
 UI.prototype.addBookToList = function(book) {
     const list = document.querySelector('#book-list')
     const row = document.createElement('tr')
@@ -41,10 +47,8 @@ document.querySelector('#book-form').addEventListener('submit', e => {
     const title = document.querySelector('#title').value,
         author = document.querySelector('#author').value,
         isbn = document.querySelector('#isbn').value
-
     const book = new Book(title, author, isbn)
     const ui = new UI()
-
     if (title === '' || author === '' || isbn === '') {
         ui.showAlert('Please fill in all fields', 'error')
     } else {
@@ -52,7 +56,12 @@ document.querySelector('#book-form').addEventListener('submit', e => {
         ui.addBookToList(book)
         ui.clearFields()
     }
-
     e.preventDefault()
 
+})
+
+document.querySelector('#book-list').addEventListener('click', e => {
+    const ui = new UI()
+    ui.deleteBook(e.target)
+    ui.showAlert('Book deleted', 'success')
 })
