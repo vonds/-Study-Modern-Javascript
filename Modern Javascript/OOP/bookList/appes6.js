@@ -44,6 +44,44 @@ class UI {
     }
 }
 
+class Store {
+    static getBooks() {
+        let books
+        if (localStorage.getItem('books') === null) {
+            books = []
+        } else {
+            books = JSON.parse(localStorage.getItem('books'))
+        }
+        return books
+    }
+
+    static displayBooks() {
+        const books = Store.getBooks()
+        books.forEach(book => {
+            const ui = new UI
+            ui.addBookToList(book)
+        })
+    }
+
+    static addBook(book) {
+        const books = Store.getBooks()
+        books.push(book)
+        localStorage.setItem('books', JSON.stringify(books))
+    }
+
+    static deleteBook(isbn) {
+        const books = Store.getBooks()
+        books.forEach((book, i) => {
+            if (book.isbn === isbn) {
+                books.splice(i, 1)
+            }
+        })
+        localStorage.setItem('books', JSON.stringify(books))
+    }
+}
+
+document.addEventListener('DOMContentLoaded', Store.displayBooks)
+
 document.querySelector('#book-form').addEventListener('submit', e => {
     const title = document.querySelector('#title').value,
         author = document.querySelector('#author').value,
@@ -55,6 +93,7 @@ document.querySelector('#book-form').addEventListener('submit', e => {
     } else {
         ui.showAlert('Book added!', 'success')
         ui.addBookToList(book)
+        Store.addBook(book)
         ui.clearFields()
     }
     e.preventDefault()
@@ -64,5 +103,6 @@ document.querySelector('#book-form').addEventListener('submit', e => {
 document.querySelector('#book-list').addEventListener('click', e => {
     const ui = new UI()
     ui.deleteBook(e.target)
+    Store.deleteBook(e.target.parentElement.previousElementSibling.textContent)
     ui.showAlert('Book deleted', 'success')
 })
