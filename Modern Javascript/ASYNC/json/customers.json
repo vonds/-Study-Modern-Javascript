@@ -1,0 +1,19 @@
+[{
+        "id": 1,
+        "name": "Siro",
+        "age": 31,
+        "company": "123 Designs"
+    },
+    {
+        "id": 2,
+        "name": "Biko",
+        "age": 21,
+        "company": "Sun Bun"
+    },
+    {
+        "id": 3,
+        "name": "Steve",
+        "age": 56,
+        "company": "Earz Media"
+    }
+]
