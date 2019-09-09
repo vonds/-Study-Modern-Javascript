@@ -60,6 +60,7 @@ document.querySelector('#book-form').addEventListener('submit', e => {
 
 })
 
+
 document.querySelector('#book-list').addEventListener('click', e => {
     const ui = new UI()
     ui.deleteBook(e.target)
