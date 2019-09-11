@@ -1,10 +1,27 @@
 const http = new EasyHttp()
+const data = {
+    title: 'clean room',
+    completed: true
+}
 
-http.get('https://jsonplaceholder.typicode.com/todos/1', (err, response) => {
-    if (err) {
-        console.log(err)
-    } else {
-        console.log(response)
-    }
+const data2 = {
+    title: 'I take what\'s mine then take some more',
+    completed: true
+}
 
-})
+http.put('https://jsonplaceholder.typicode.com/todos/1', data2)
+    .then(data => console.log(data))
+    .catch(err => console.log(err))
+
+
+http.get('https://jsonplaceholder.typicode.com/todos/1')
+    .then(data => console.log(data))
+    .catch(err => console.log(err))
+
+http.post('https://jsonplaceholder.typicode.com/todos', data)
+    .then(data => console.log(data))
+    .catch(err => console.log(err))
+
+http.delete('https://jsonplaceholder.typicode.com/todos/1')
+    .then(data => console.log(data))
+    .catch(err => console.log(err))
