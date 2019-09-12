@@ -5,12 +5,12 @@ class UI {
 
     showProfile(user) {
         this.profile.innerHTML = `
-        <section class="card card-body mb-4">
-        <section class="row">
-            <section class="col-md-3">
-                <img src="${user.avatar_url}" alt="user photo" class="img-fluid mb-3">
-                <a href="${user.html_url}" target="_blank" class="btn btn-primary btn-block mb-4">View Profile</a>
-            </section>
+        <section class="card card-body mb-3">
+            <section class="row">
+                <section class="col-md-3">
+                    <img src="${user.avatar_url}" alt="user avatar" class="img-fluid mb-3">
+                    <a href="${user.html_url}" class="btn btn-primary btn-block mb-4">View Profile</a>
+                </section>
             <section class="col-md-9">
                 <span class="badge badge-primary">Public Repos: ${user.public_repos}</span>
                 <span class="badge badge-secondary">Public Gists: ${user.public_gists}</span>
@@ -26,7 +26,7 @@ class UI {
             </section>
         </section>
     </section>
-    <h3 class="page-header">Recent Repos</h3>
+    <h3 class="page-heading mb-3">Recent Repos</h3>
     <section id="repos"></section>
         `
     }
@@ -35,7 +35,7 @@ class UI {
         let output = ''
         repos.forEach(repo => {
             output += `
-            <section class="card card-body mb-2">
+                <section class="card card-body mb-2">
                 <section class="row">
                     <section class="col-md-6">
                         <a href="${repo.html_url}" target="_blank">${repo.name}</a>
@@ -60,9 +60,7 @@ class UI {
         const container = document.querySelector('.searchContainer')
         const search = document.querySelector('.search')
         container.insertBefore(div, search)
-        setTimeout(() => {
-            this.clearAlert()
-        }, 2000)
+        setTimeout(this.clearAlert, 2000)
     }
 
     clearAlert() {
