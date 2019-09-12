@@ -54,7 +54,6 @@ class UI {
 
     showAlert(message, className) {
         this.clearAlert()
-        this.clearProfile()
         const div = document.createElement('div')
         div.className = className
         div.appendChild(document.createTextNode(message))
