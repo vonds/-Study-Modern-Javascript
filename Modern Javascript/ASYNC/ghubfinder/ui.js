@@ -59,7 +59,6 @@ class UI {
         div.appendChild(document.createTextNode(message))
         const container = document.querySelector('.searchContainer')
         const search = document.querySelector('.search')
-        console.log('hello')
         container.insertBefore(div, search)
         setTimeout(() => {
             this.clearAlert()
