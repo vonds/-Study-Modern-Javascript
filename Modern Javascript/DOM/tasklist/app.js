@@ -4,24 +4,18 @@ const clearBtn = document.querySelector('.clear-tasks')
 const filter = document.querySelector('#filter')
 const taskInput = document.querySelector('#task')
 
-const storeTaskInLocalStorage = task => {
+const getStorageItems = () => {
     let tasks
     if (localStorage.getItem('tasks') === null) {
         tasks = []
     } else {
         tasks = JSON.parse(localStorage.getItem('tasks'))
     }
-    tasks.push(task)
-    localStorage.setItem('tasks', JSON.stringify(tasks))
+    return tasks
 }
 
 const getTasks = () => {
-    let tasks
-    if (localStorage.getItem('tasks') === null) {
-        tasks = []
-    } else {
-        tasks = JSON.parse(localStorage.getItem('tasks'))
-    }
+    const tasks = getStorageItems()
     tasks.forEach(task => {
         const li = document.createElement('li')
         li.className = 'collection-item'
@@ -34,10 +28,14 @@ const getTasks = () => {
     })
 }
 
+const storeTaskInLocalStorage = task => {
+    const tasks = getStorageItems()
+    tasks.push(task)
+    localStorage.setItem('tasks', JSON.stringify(tasks))
+}
+
 const addTask = e => {
-    if (taskInput.value === '') {
-        return alert('Add a task')
-    }
+    if (taskInput.value === '') return alert('Add a task')
     const li = document.createElement('li')
     li.className = 'collection-item'
     li.appendChild(document.createTextNode(taskInput.value))
@@ -54,12 +52,7 @@ const addTask = e => {
 }
 
 const removeTaskFromLocalStorage = taskItem => {
-    let tasks
-    if (localStorage.getItem('tasks') === null) {
-        tasks = []
-    } else {
-        tasks = JSON.parse(localStorage.getItem('tasks'))
-    }
+    const tasks = getStorageItems()
     tasks.forEach((task, i) => {
         if (taskItem.textContent === task) {
             tasks.splice(i, 1)
@@ -87,10 +80,10 @@ const clearTasks = () => {
 }
 
 const filterTasks = e => {
-    const text = e.target.value.toLowerCase()
+    const text = e.target.value
     document.querySelectorAll('.collection-item').forEach(task => {
         const item = task.firstChild.textContent
-        if (item.toLowerCase().indexOf(text) != -1) {
+        if (item.toLowerCase().indexOf(text) !== -1) {
             task.style.display = 'block'
         } else {
             task.style.display = 'none'
@@ -103,7 +96,7 @@ const loadEventListeners = () => {
     form.addEventListener('submit', addTask)
     taskList.addEventListener('click', removeTask)
     clearBtn.addEventListener('click', clearTasks)
-    filter.addEventListener('keyup', filterTasks)
+    filter.addEventListener('keydown', filterTasks)
 }
 
 loadEventListeners()
