@@ -1,6 +1,6 @@
+const searchUser = document.querySelector('#searchUser')
 const github = new Github()
 const ui = new UI()
-const searchUser = document.querySelector('#searchUser')
 
 searchUser.addEventListener('keyup', e => {
     const userText = e.target.value
