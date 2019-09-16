@@ -5,7 +5,6 @@ const loadData = () => {
         if (xhr.status === 200) {
             document.querySelector('#output').textContent = xhr.responseText
         }
-
     }
     xhr.send()
 }
