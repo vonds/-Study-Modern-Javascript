@@ -1,5 +1,5 @@
 const getRandomNum = (min, max) => {
-    return Math.floor(Math.random() * (max - min + 1) + min)
+    return Math.floor(Math.random() * (max - min) + min)
 }
 
 let min = 1,
@@ -10,44 +10,43 @@ let min = 1,
 const game = document.querySelector('#game'),
     minNum = document.querySelector('.min-num'),
     maxNum = document.querySelector('.max-num'),
-    guessBtn = document.querySelector('#guess-btn'),
     guessInput = document.querySelector('#guess-input'),
+    guessBtn = document.querySelector('#guess-btn'),
     message = document.querySelector('.message')
 
 minNum.textContent = min
 maxNum.textContent = max
 
-const setMessage = (msg, color) => {
+const showMessage = (msg, color) => {
     message.textContent = msg
     message.style.color = color
 }
 
 const gameOver = (won, msg) => {
-    let color
     won === true ? color = 'green' : color = 'red'
-    guessInput.disabled = true
     guessInput.style.borderColor = color
-    setMessage(msg, color)
+    guessInput.value = ''
+    showMessage(msg, color)
 
     guessBtn.value = 'Play Again'
     guessBtn.className += 'play-again'
 }
 
 guessBtn.addEventListener('click', () => {
-    let guess = parseInt(guessInput.value)
+    const guess = parseInt(guessInput.value)
     if (isNaN(guess) || guess < min || guess > max) {
-        return setMessage(`Please enter a number between ${min} and ${max}`, 'red')
+        return showMessage(`Please add a number between ${min} and ${max}`, 'red')
     }
 
     if (guess === winningNum) {
         gameOver(true, `${winningNum} is correct, YOU WIN!`)
     } else {
-        guessesLeft -= 1
+        guessesLeft--
         if (guessesLeft === 0) {
-            gameOver(false, `Game over, you lost. ${winningNum} was the correct number`)
+            gameOver(false, `You lost. The correct number was ${winningNum}`)
         } else {
             guessInput.value = ''
-            setMessage(`${guess} is not correct, ${guessesLeft} guesses left.`, 'red')
+            showMessage(`${guess} is not correct, ${guessesLeft} guesses left`, 'red')
         }
     }
 })
