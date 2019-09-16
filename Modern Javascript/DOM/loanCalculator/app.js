@@ -1,20 +1,20 @@
-const loanForm = document.querySelector('#loan-form')
+loanForm = document.querySelector('#loan-form')
 
-const clearError = () => {
-    document.querySelector('.alert-danger').remove()
+const clearAlert = () => {
+    document.querySelector('.alert').remove()
 }
 
-const showError = error => {
+const showAlert = (error) => {
     const errorDiv = document.createElement('div')
-    const card = document.querySelector('.card')
-    const heading = document.querySelector('.heading')
     errorDiv.className = 'alert alert-danger'
     errorDiv.appendChild(document.createTextNode(error))
+    const card = document.querySelector('.card')
+    const heading = document.querySelector('.heading')
     card.insertBefore(errorDiv, heading)
-    setTimeout(clearError, 2000)
+    setTimeout(clearAlert, 2000)
 }
 
-const calculatedResults = () => {
+const calculateResults = () => {
     const amount = document.querySelector('#amount')
     const interest = document.querySelector('#interest')
     const years = document.querySelector('#years')
@@ -32,19 +32,19 @@ const calculatedResults = () => {
     if (isFinite(monthly)) {
         monthlyPayment.value = monthly.toFixed(2)
         totalPayment.value = (monthly * calculatedPayments).toFixed(2)
-        totalInterest.value = ((monthly * calculatedPayments) - principal)
+        totalInterest.value = ((monthly * calculatedPayments) - principal).toFixed(2)
         document.querySelector('#results').style.display = 'block'
         document.querySelector('#loading').style.display = 'none'
     } else {
         document.querySelector('#results').style.display = 'none'
         document.querySelector('#loading').style.display = 'none'
-        showError('Please check your numbers')
+        showAlert('Please check your numbers')
     }
 }
 
 loanForm.addEventListener('submit', e => {
     document.querySelector('#results').style.display = 'none'
     document.querySelector('#loading').style.display = 'block'
-    setTimeout(calculatedResults, 5000)
+    setTimeout(calculateResults, 5000)
     e.preventDefault()
 })
