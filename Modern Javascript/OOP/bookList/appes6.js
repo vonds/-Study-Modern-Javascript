@@ -1,8 +1,8 @@
 class Book {
     constructor(title, author, isbn) {
         this.title = title
-        this.author = author,
-            this.isbn = isbn
+        this.author = author
+        this.isbn = isbn
     }
 }
 
@@ -37,6 +37,19 @@ class UI {
         }, 2000)
     }
 
+    // 10
+    showAlert(message, className) {
+        const div = document.createElement('div')
+        div.className = `alert ${className}`
+        div.appendChild(document.createTextNode(message))
+        const container = document.querySelector('.container')
+        const form = document.querySelector('#book-form')
+        container.insertBefore(div, form)
+        setTimeout(() => {
+            document.querySelector('.alert').remove()
+        }, 2000)
+    }
+
     clearFields() {
         document.querySelector('#title').value = ''
         document.querySelector('#author').value = ''
@@ -58,7 +71,7 @@ class Store {
     static displayBooks() {
         const books = Store.getBooks()
         books.forEach(book => {
-            const ui = new UI
+            const ui = new UI()
             ui.addBookToList(book)
         })
     }
@@ -98,6 +111,7 @@ document.querySelector('#book-form').addEventListener('submit', e => {
     }
     e.preventDefault()
 })
+
 
 document.querySelector('#book-list').addEventListener('click', e => {
     const ui = new UI()
