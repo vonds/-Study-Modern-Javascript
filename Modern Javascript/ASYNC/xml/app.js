@@ -1,3 +1,5 @@
+const btn = document.querySelector('#button')
+
 const loadData = () => {
     const xhr = new XMLHttpRequest()
     xhr.open('GET', 'data.txt', true)
@@ -9,4 +11,4 @@ const loadData = () => {
     xhr.send()
 }
 
-document.querySelector('#button').addEventListener('click', loadData)
+btn.addEventListener('click', loadData)
