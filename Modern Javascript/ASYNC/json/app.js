@@ -23,7 +23,7 @@ const loadCustomers = () => {
     xhr.open('GET', 'customers.json', true)
     xhr.onload = () => {
         if (xhr.status === 200) {
-            let output
+            let output = ''
             const customers = JSON.parse(xhr.responseText)
             customers.forEach(customer => {
                 output += `
@@ -35,7 +35,7 @@ const loadCustomers = () => {
                 </ul>
             `
             })
-            return document.querySelector('#customers').innerHTML = output
+            document.querySelector('#customers').innerHTML = output
         }
     }
     xhr.send()
