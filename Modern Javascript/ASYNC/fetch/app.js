@@ -1,6 +1,6 @@
 const getText = () => {
     fetch('test.txt')
-        .then(res => res.text())
+        .then(res => res.json())
         .then(data => {
             document.querySelector('#output').innerHTML = data
         })
@@ -15,10 +15,10 @@ const getJson = () => {
         .then(data => {
             data.forEach(user => {
                 document.querySelector('#output').innerHTML += `
-                        <li>${user.id}</li>
-                        <li>${user.name}</li>
-                        <li>${user.lastName}</li>
-                    `
+                    <li>${user.id}</li>
+                    <li>${user.name}</li>
+                    <li>${user.lastName}</li>
+                `
             })
         })
         .catch(err => {
@@ -40,7 +40,6 @@ const getExternal = () => {
             document.querySelector('#output').innerHTML = err
         })
 }
-
 
 document.querySelector('#button1').addEventListener('click', getText)
 document.querySelector('#button2').addEventListener('click', getJson)

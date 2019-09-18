@@ -41,7 +41,7 @@ easyHttp.prototype.delet = (url, callback) => {
     http.setResquestHeader('Content-type', 'application/json')
     http.onload = () => {
         if (http.status === 200) {
-            callback(null, {})
+            callback(null, 'Post deleted')
         } else {
             callback(`Error ${http.responseText}`)
         }
