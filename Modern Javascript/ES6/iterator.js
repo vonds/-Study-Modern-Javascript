@@ -9,6 +9,21 @@ const nameIterator = names => {
     }
 }
 
+function* createIds() {
+    let index = 1
+    while (true) {
+        yield index++
+    }
+}
+
+
+const ids = createIds()
+console.log(ids.next().value)
+console.log(ids.next().value)
+console.log(ids.next().value)
+console.log(ids.next().value)
+console.log(ids.next().value)
+
 const namesArr = ['Jack', 'Jill', 'John']
 const names = nameIterator(namesArr)
 
