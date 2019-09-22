@@ -52,28 +52,6 @@ const person = {
 // New Es6
 const { name, age, city, sayHello } = person
 
-// 1
-const { name, age, city, sayHello } = person
-
-// 2
-const { name, age, city, sayHello } = person
-
-// 3
-
-// 4
-
-// 5
-
-// 6
-
-// 7
-
-// 8
-
-// 9
-
-// 10
-
 console.log(name)
 console.log(age)
 console.log(city)
