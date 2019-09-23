@@ -45,46 +45,6 @@ const ItemCtrl = (function () {
     }
 })()
 
-// 1
-const ItemCtrl = (function () {
-
-})()
-
-// 2
-const ItemCtrl = (function () {
-
-})()
-
-// 3
-const ItemCtrl = (function () {
-
-})()
-
-// 4
-const ItemCtrl = (function () {
-
-})()
-
-// 5
-const ItemCtrl = (function () {
-
-})()
-
-// 6
-const ItemCtrl = (function () {
-
-})()
-
-// 7
-const ItemCtrl = (function () {
-
-})
-
-// 8
-
-// 9
-
-// 10
 
 ItemCtrl.add({ id: 1, name: 'Soup' })
 ItemCtrl.add({ id: 2, name: 'Cucumbers' })
