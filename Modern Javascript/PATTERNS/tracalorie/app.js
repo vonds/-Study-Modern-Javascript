@@ -1,4 +1,3 @@
-// Storage Controller
 const StorageCtrl = (function () {
 
     return {
@@ -7,7 +6,6 @@ const StorageCtrl = (function () {
 })()
 
 
-// Item Controller
 const ItemCtrl = (function () {
     const Item = function (id, name, calories) {
         this.id = id
@@ -15,7 +13,7 @@ const ItemCtrl = (function () {
         this.calories = calories
     }
 
-    // Data Structure / State
+
     const data = {
         items: [
             { id: 0, name: 'Steak Dinner', calories: 1200 },
@@ -27,22 +25,33 @@ const ItemCtrl = (function () {
     }
 
     return {
-        getItems: () => {
-            return data.items
+        getItems: () => data.items,
+
+        addItem: (name, calories) => {
+            let ID
+            if (data.items.length > 0) {
+                ID = data.items[data.items.length - 1].id + 1
+            } else {
+                ID = 0
+            }
+            calories = parseInt(calories)
+            newItem = new Item(ID, name, calories)
+            data.items.push(newItem)
+            return newItem
         },
 
-        logData: () => {
-            return data
-        }
+        logData: () => data
     }
 })()
 
-// UI Controller
-
 const UICtrl = (function () {
     const UISelectors = {
-        itemList: '#item-list'
+        itemList: '#item-list',
+        addBtn: '.add-btn',
+        itemNameInput: '#item-name',
+        itemCaloriesIntput: '#item-calories'
     }
+
     return {
         populateItemList: (items) => {
             let html = ''
@@ -50,24 +59,147 @@ const UICtrl = (function () {
                 html += `
                 <li class="collection-item" id="item-${item.id}">
                     <strong>${item.name}: </strong> <em>${item.calories} Calories</em>
-                    <a href="#" class="secondary-content"><i class="edit-item fa fa-edit"></i></a>
+                    <a href="#" class="secondary-content"><i class="fa fa-edit"></i></a>
                 </li>
                 `
             })
             document.querySelector(UISelectors.itemList).innerHTML = html
-        }
+        },
+
+        getItemInput: () => {
+            return {
+                name: document.querySelector(UISelectors.itemNameInput).value,
+                calories: document.querySelector(UISelectors.itemCaloriesIntput).value
+            }
+        },
+
+        addListItem: (item) => {
+            const li = document.createElement('li')
+            li.className = 'collection-item'
+            li.id = `item-${item.id}`
+            li.innerHTML = `
+                <strong>${item.name}: </strong> <em>${item.calories} Calories</em>
+                <a href="#" class="secondary-content"><i class="fa fa-edit"></i></a>
+            `
+            document.querySelector(UISelectors.itemList).insertAdjacentElement('beforeend', li)
+        },
+
+        // 1
+
+        // 2
+
+        // 3
+
+        // 4
+
+        // 5
+
+        // 6
+
+        // 7
+
+        // 8
+
+        // 9
+
+        // 10
+
+        clearInput: () => {
+            document.querySelector(UISelectors.itemNameInput).value = ''
+            document.querySelector(UISelectors.itemCaloriesInput).value = ''
+        },
+
+        // 1
+
+        // 2
+
+        // 3
+
+        // 4
+
+        // 5
+
+        // 6
+
+        // 7
+
+        // 8
+
+        // 9
+
+        // 10
+
+        getSelectors: () => UISelectors
     }
 })()
 
-// App Controller
 const App = (function (ItemCtrl, UICtrl) {
+
+    const loadEventListeners = () => {
+        const UISelectors = UICtrl.getSelectors()
+        document.querySelector(UISelectors.addBtn).addEventListener('click', itemAddSubmit)
+    }
+
+    const itemAddSubmit = e => {
+        const input = UICtrl.getItemInput()
+
+        if (input.name !== '' && input.calories !== '') {
+            const newItem = ItemCtrl.addItem(input.name, input.calories)
+            UICtrl.addListItem(newItem)
+            // 1
+
+            // 2
+
+            // 3
+
+            // 4
+
+            // 5
+
+            // 6
+
+            // 7
+
+            // 8
+
+            // 9
+
+            // 10
+
+            UICtrl.clearInput()
+
+            // 1
+
+            // 2
+
+            // 3
+
+            // 4
+
+            // 5
+
+            // 6
+
+            // 7
+
+            // 8
+
+            // 9
+
+            // 10
+        }
+
+        e.preventDefault()
+    }
+
     return {
         init: () => {
             const items = ItemCtrl.getItems()
             UICtrl.populateItemList(items)
+            loadEventListeners()
         }
     }
 })(ItemCtrl, UICtrl)
 
-App.init()
 
+console.log(App.init())
