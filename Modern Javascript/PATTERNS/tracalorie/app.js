@@ -82,7 +82,7 @@ const UICtrl = (function () {
                 html += `
                 <li class="collection-item" id="item-${item.id}">
                     <strong>${item.name}: </strong> <em>${item.calories} Calories</em>
-                    <a href="#" class="secondary-content"><i class="fa fa-edit"></i></a>
+                    <a href="#" class="secondary-content"><i class="edit-item fa fa-edit"></i></a>
                 </li>
                 `
             })
@@ -103,7 +103,7 @@ const UICtrl = (function () {
             li.id = `item-${item.id}`
             li.innerHTML = `
                 <strong>${item.name}: </strong> <em>${item.calories} Calories</em>
-                <a href="#" class="secondary-content"><i class="fa fa-edit"></i></a>
+                <a href="#" class="secondary-content"><i class="edit-item fa fa-edit"></i></a>
             `
             document.querySelector(UISelectors.itemList).insertAdjacentElement('beforeend', li)
         },
@@ -151,7 +151,7 @@ const App = (function (ItemCtrl, UICtrl) {
     const loadEventListeners = () => {
         const UISelectors = UICtrl.getSelectors()
         document.querySelector(UISelectors.addBtn).addEventListener('click', itemAddSubmit)
-        document.querySelector(UISelectors.itemList).addEventListener('click', itemUpdateSubmit)
+        document.querySelector(UISelectors.itemList).addEventListener('click', itemEditClick)
     }
 
     const itemAddSubmit = e => {
@@ -167,7 +167,7 @@ const App = (function (ItemCtrl, UICtrl) {
         e.preventDefault()
     }
 
-    const itemUpdateSubmit = e => {
+    const itemEditClick = e => {
         if (e.target.classList.contains('edit-item')) {
             const listId = e.target.parentNode.parentNode.id
             const listIdArr = listId.split('-')
