@@ -210,7 +210,7 @@ const App = (function (ItemCtrl, UICtrl) {
     }
 
     const itemUpdateSubmit = e => {
-        const input = UIctrl.getItemInput()
+        const input = UICtrl.getItemInput()
         const updatedItem = ItemCtrl.updateItem(input.name, input.calories)
         UICtrl.updateListItem(updatedItem)
         const totalCalories = ItemCtrl.getTotalCalories()

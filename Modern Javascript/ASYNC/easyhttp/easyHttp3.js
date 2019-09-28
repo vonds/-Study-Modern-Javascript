@@ -30,13 +30,13 @@ class EasyHttp {
     }
 
     async delete(url) {
-        const response = await fetch(url, {
+        await fetch(url, {
             method: 'DELETE',
             headers: {
                 'Content-type': 'application/json'
             }
         })
-        const responseData = await 'Todo has been deleted'
-        return responseData
+        const response = await 'Todo has been deleted'
+        return response
     }
 }
