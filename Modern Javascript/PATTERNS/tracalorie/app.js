@@ -1,7 +1,45 @@
 const StorageCtrl = (function () {
 
     return {
+        storeItem: item => {
+            const items = StorageCtrl.getItemsFromStorage()
+            items.push(item)
+            StorageCtrl.setStorage(items)
+        },
 
+        getItemsFromStorage: () => {
+            let items = []
+            localStorage.getItem('items') === null ? items = [] : items = JSON.parse(localStorage.getItem('items'))
+            return items
+        },
+
+        updateItemStorage: updatedItem => {
+            const items = StorageCtrl.getItemsFromStorage()
+            items.forEach((item, index) => {
+                if (updatedItem.id === item.id) {
+                    items.splice(index, 1, updatedItem)
+                }
+            })
+            StorageCtrl.setStorage(items)
+        },
+
+        setStorage: items => {
+            localStorage.setItem('items', JSON.stringify(items))
+        },
+
+        deleteItemFromStorage: id => {
+            const items = StorageCtrl.getItemsFromStorage()
+            items.forEach((item, index) => {
+                if (id === item.id) {
+                    items.splice(index, 1)
+                }
+            })
+            StorageCtrl.setStorage(items)
+        },
+
+        clearAllItemsFromStorage: () => {
+            localStorage.clear()
+        }
     }
 })()
 
@@ -15,7 +53,7 @@ const ItemCtrl = (function () {
 
 
     const data = {
-        items: [],
+        items: StorageCtrl.getItemsFromStorage(),
         currentItem: null,
         totalCalories: 0
     }
@@ -199,7 +237,7 @@ const UICtrl = (function () {
     }
 })()
 
-const App = (function (ItemCtrl, UICtrl) {
+const App = (function (ItemCtrl, StorageCtrl, UICtrl) {
 
     const loadEventListeners = () => {
         const UISelectors = UICtrl.getSelectors()
@@ -220,6 +258,7 @@ const App = (function (ItemCtrl, UICtrl) {
             UICtrl.addListItem(newItem)
             const totalCalories = ItemCtrl.getTotalCalories()
             UICtrl.showTotalCalories(totalCalories)
+            StorageCtrl.storeItem(newItem)
             UICtrl.clearInput()
         }
         e.preventDefault()
@@ -243,6 +282,7 @@ const App = (function (ItemCtrl, UICtrl) {
         UICtrl.updateListItem(updatedItem)
         const totalCalories = ItemCtrl.getTotalCalories()
         UICtrl.showTotalCalories(totalCalories)
+        StorageCtrl.updateItemStorage(updatedItem)
         UICtrl.clearEditState()
         e.preventDefault()
     }
@@ -253,6 +293,7 @@ const App = (function (ItemCtrl, UICtrl) {
         UICtrl.deleteListItem(currentItem.id)
         const totalCalories = ItemCtrl.getTotalCalories()
         UICtrl.showTotalCalories(totalCalories)
+        StorageCtrl.deleteItemFromStorage(currentItem.id)
         UICtrl.clearEditState()
         e.preventDefault()
     }
@@ -262,9 +303,9 @@ const App = (function (ItemCtrl, UICtrl) {
         const totalCalories = ItemCtrl.getTotalCalories()
         UICtrl.showTotalCalories(totalCalories)
         UICtrl.removeItems()
+        StorageCtrl.clearAllItemsFromStorage()
         UICtrl.hideList()
     }
-
 
     return {
         init: () => {
@@ -276,7 +317,7 @@ const App = (function (ItemCtrl, UICtrl) {
             loadEventListeners()
         }
     }
-})(ItemCtrl, UICtrl)
+})(ItemCtrl, StorageCtrl, UICtrl)
 
 
 console.log(App.init())
