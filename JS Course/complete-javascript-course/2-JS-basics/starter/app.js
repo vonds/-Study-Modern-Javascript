@@ -45,25 +45,71 @@
 // tipCalculator([124, 48, 268])
 
 
-const john = {
-    name: 'John',
-    height: 1.77,
-    mass: 81.6
+// const john = {
+//     name: 'John',
+//     height: 1.77,
+//     mass: 81.6
+// }
+
+// const mark = {
+//     name: 'Mark',
+//     height: 1.77,
+//     mass: 81.6
+// }
+
+// const johnBMI = john.mass / (john.height * john.height)
+// const markBMI = mark.mass / (mark.height * mark.height)
+
+// if (johnBMI < markBMI) {
+//     console.log("Is mark's BMI higher than john's? True")
+// } else if (johnBMI > markBMI) {
+//     console.log("Is mark's BMI higher than john's? False")
+// } else {
+//     console.log('they have the same BMI')
+// }
+
+function tipCalculator(name, arr) {
+    let avgTip = 0
+    let percentage
+    for (let i = 0; i <= arr.length; i++) {
+        if (name === 'Mark') {
+            if (arr[i] < 50) {
+                percentage = .2;
+                avgTip += (arr[i] * percentage) / arr.length
+            } else if (arr[i] >= 50 && arr[i] <= 200) {
+                percentage = .15;
+                avgTip += (arr[i] * percentage) / arr.length
+            } else if (arr[i] > 200) {
+                percentage = .1;
+                avgTip += (arr[i] * percentage) / arr.length
+            }
+        }
+
+        if (name === 'John') {
+            if (arr[i] < 100) {
+                percentage = .2;
+                avgTip += (arr[i] * percentage) / arr.length
+            } else if (arr[i] >= 100 && arr[i] <= 300) {
+                percentage = .1;
+                avgTip += (arr[i] * percentage) / arr.length
+            } else if (arr[i] > 300) {
+                percentage = .25;
+                avgTip += (arr[i] * percentage) / arr.length
+            }
+        }
+
+    }
+    return avgTip
+
 }
 
-const mark = {
-    name: 'Mark',
-    height: 1.77,
-    mass: 81.6
-}
+const johnTipTotal = tipCalculator('John', [124, 48, 268])
+const markTipTotal = tipCalculator('Mark', [77, 375, 110, 45])
 
-const johnBMI = john.mass / (john.height * john.height)
-const markBMI = mark.mass / (mark.height * mark.height)
-
-if (johnBMI < markBMI) {
-    console.log("Is mark's BMI higher than john's? True")
-} else if (johnBMI > markBMI) {
-    console.log("Is mark's BMI higher than john's? False")
+if (johnTipTotal > markTipTotal) {
+    console.log(`John's families tip total was higher. ${johnTipTotal}`)
+} else if (johnTipTotal < markTipTotal) {
+    console.log(`Mark's families tip total was higher. ${markTipTotal}`)
 } else {
-    console.log('they have the same BMI')
+    console.log('Both families tip total were the same')
 }
