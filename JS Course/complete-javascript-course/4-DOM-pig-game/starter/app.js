@@ -13,13 +13,12 @@ let scores = [0, 0],
     roundScore = 0,
     activePlayer = 0
 
-
 const diceEl = document.querySelector('.dice'),
     score0 = document.querySelector('#score-0'),
     score1 = document.querySelector('#score-1'),
     current0 = document.querySelector('#current-0'),
     current1 = document.querySelector('#current-1'),
-    players = document.querySelector(`#current-${activePlayer}`)
+    current = document.querySelector(`#current-${activePlayer}`)
 
 diceEl.style.display = 'none'
 score0.textContent = 0
@@ -29,12 +28,12 @@ current0.textContent = 0
 
 const rollDice = () => {
     const dice = Math.floor(Math.random() * 6) + 1
-    players.textContent = dice
+    current.textContent = dice
     diceEl.style.display = 'block'
     diceEl.src = `dice-${dice}.png`
     if (dice !== 1) {
         roundScore += dice
-        players.textContent = roundScore
+        current.textContent = roundScore
     } else {
         nextPlayer()
     }
